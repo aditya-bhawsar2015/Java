@@ -1,15 +1,17 @@
-package day9;
+package mt;
 
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class MyQueue {
-    Queue<Integer> queue;
+
+	BlockingQueue<Integer> queue;
 	boolean hasvalue;
 	
 	public MyQueue()
 	{
-		queue = new ArrayBlockingQueue<>(1);
+		queue = new ArrayBlockingQueue<>(10);
 	}
 	
 	public synchronized void setValue(int value)
@@ -40,6 +42,12 @@ public class MyQueue {
 		}
 		hasvalue = false;
 		notifyAll();
-		return queue.poll();
+		try {
+			return queue.take();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
