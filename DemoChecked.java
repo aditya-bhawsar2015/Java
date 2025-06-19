@@ -1,11 +1,11 @@
 package day5;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class DemoChecked {	
-	public static void createFile(String file) throws IOException
+public class DemoChecked {
+
+	public static void createFile (String file) throws IOException
 	{
 		File f = new File(file);
 		
@@ -14,15 +14,15 @@ public class DemoChecked {
 			f.createNewFile();
 		}
 	}
-	public static void main(String[] args)  {
-		/*
-		 * unlike unchecked exception, a check exception must either be
-		 * declared or handled
+	public static void main(String[] args) {
+		/*unlike unchecked exception, a check exception must either be declared or handled
 		 * One can handle checked exception anywhere in the calling stack
-		 */
+		 * */
 		try {
 			DemoChecked.createFile("test.txt");
-		} catch (IOException e) {
+			}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}

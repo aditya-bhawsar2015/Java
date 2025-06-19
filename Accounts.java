@@ -4,29 +4,23 @@ public class Accounts {
 	public static void main(String[] args) {
 		Payroll payroll = new Payroll();
 		
-		Employee [] emps = new Employee[3];
-		emps[0] = new SalariedEmployee(2334, "ppp", 600000); //up casting
-		emps[1] = new Manager(56475, "mmm", 80000, 15000);
-		emps[2] = new ContractEmployee(342, "sss", 40, 500);
+		Employee [] emp = new Employee[3];
+		emp[0] = new SalariedEmployee(22, "Akshat", 250000.00);//upcasting
+		emp[1] = new Manager(23, "Saksham", 2399999.00, 12345);
+		emp[2] = new ContractEmployee(24, "somemone", 55, 1200);
 		
-		for(Employee e : emps)
-		{
+		for(Employee e : emp) {
 			payroll.displayGross(e);
 		}
 		
-		SalariedEmployee se = (SalariedEmployee) emps[0]; //down casting
-		payroll.displayNet(se);
-		
-		for(Employee e : emps)
-		{
-			if (e instanceof SalariedEmployee)
-			{
+		for(Employee e : emp) {
+			if(e instanceof SalariedEmployee) {
+				//DownCastings
 				//((SalariedEmployee) e).calculateNet();
-				SalariedEmployee s = (SalariedEmployee)e;
+				SalariedEmployee s = (SalariedEmployee) e;
 				payroll.displayNet(s);
 			}
 		}
-
 	}
 
 }

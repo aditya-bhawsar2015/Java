@@ -1,29 +1,37 @@
 package day5;
 
 public class Book {
-	private int isbn;
+	private int ISBN;
 	private String title;
-	public Book(int isbn, String title) {
+	
+	public Book(int iSBN, String title) {
 		super();
-		this.isbn = isbn;
+		ISBN = iSBN;
 		this.title = title;
 	}
-	public int getIsbn() {
-		return isbn;
+	
+	public int getISBN() {
+		return ISBN;
 	}
-	public void setIsbn(int isbn) {
-		this.isbn = isbn;
+
+	public void setISBN(int iSBN) {
+		ISBN = iSBN;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
+	
+
 	@Override
 	public String toString() {
-		return "Book [isbn=" + isbn + ", title=" + title + "]";
+		return "BookClass [ISBN=" + ISBN + ", title=" + title + "]";
 	}
-	
-	
+
+
 }

@@ -1,0 +1,11 @@
+1. Create Date class in folder1\src
+2. Date class is in package com.mycompany.util
+3. Create Calender class in Folder2
+4. Import date class , create Date object and print them
+5. Compile date Class
+	Folder1\src>javac -d ../bin Date.java
+6. Compile Calender class
+	Folder2>set classpath= ....\Folder1\bin;
+	Folder2>javac Calender.java
+7. Run Calender class
+	Folder2>java Calender
