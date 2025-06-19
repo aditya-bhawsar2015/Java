@@ -1,6 +1,5 @@
-package day7;
+package lambda;
 
 public interface Predicate {
-  boolean test(int n);
-	
+	boolean test(int n);
 }

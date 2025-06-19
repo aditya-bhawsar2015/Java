@@ -1,4 +1,4 @@
-package day7;
+package lambda;
 
 public interface NewPredicate <T> {
 	boolean test(T data);

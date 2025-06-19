@@ -1,36 +1,40 @@
-package day7;
+package lambda;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DemoLambda {
-	public static boolean opearteOnNumber(Predicate p , int number)
+	
+	public static boolean operateOnNumber(Predicate p, int number)
 	{
 		return p.test(number);
 	}
 	
-	public static ArrayList<Integer> operateOnList(Predicate p, List<Integer> list)
-	{
+	public static int newOperation(Int p, int number) {
+		return p.check(number);
+	}
+	
+	public static ArrayList<Integer> operationOnList(Predicate p, List<Integer> list){
 		ArrayList<Integer> filtered = new ArrayList<>();
-		for(Integer i : list)
-		{
-			if(p.test(i))
-				filtered.add(i);
+		for(Integer e : list) {
+			if(p.test(e)) {
+				filtered.add(e);
+			}
 		}
 		return filtered;
 	}
+
 	public static void main(String[] args) {
-		Integer [] arr= {12, 13, 14, 15, 16,17, 18, 19, 20};
-		List<Integer> lst = Arrays.asList(arr);
 		
 		Predicate ispositive = (n) -> n>0;
- 		System.out.println(ispositive.test(10));
+		
+		System.out.println(ispositive.test(10));
 		System.out.println(ispositive.test(-10));
 		
-		Predicate isprime = (n) ->
+		Predicate isprime = (n)->
 		{
-			for(int i=2; i<n;i++)
+			for(int i=2;i<n;i++)
 			{
 				if(n%i==0)
 					return false;
@@ -38,30 +42,69 @@ public class DemoLambda {
 			return true;
 		};
 		
-		System.out.println(isprime.test(23));
-		System.out.println(isprime.test(18));
-
-		boolean res=opearteOnNumber((n) -> n%2==0, 20);
+		System.out.println(isprime.test(79));
+		System.out.println(isprime.test(3));
+		Int square = (n) -> n*n;
+		
+		Int factorial = (n) ->{
+			if(n==0) 
+				return 1;
+			for(int i=n-1; i>0; i--) {
+				n=n*i;
+			}
+			return n;
+		
+		};
+		System.out.println(square.check(5));
+		System.out.println(factorial.check(6));
+		
+		boolean res = operateOnNumber((n) -> n%2==0, 20);
 		System.out.println(res);
 		
-		
-		res =opearteOnNumber(isprime, 10);
-		System.out.println(res);
-		
-		res =opearteOnNumber((n) ->
+		res = operateOnNumber ((n) ->
 		{
-			for(int i=2; i<n;i++)
+			for(int i=2;i<n;i++)
 			{
-				if(n%i==0)
+				if(n%2==0)
 					return false;
 			}
 			return true;
-		}, 0);
+		},59);
 		System.out.println(res);
 		
-		ArrayList<Integer> evens = operateOnList((n) -> n%2==0, lst);
-		System.out.println(evens);
-	
+		Int cube = (n) -> n*n*n;
+		
+		int result = newOperation(cube, 5);
+		
+		System.out.println(result);
+		result = newOperation((n)->{
+			
+			for(int i = n-1; i >0; i--) {
+				n = n*i;
+			}
+			return n;
+		},4);
+		System.out.println(result);
+		
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		
+		list.add(1);
+		list.add(4);
+		list.add(7);
+		list.add(-2);
+		list.add(5);
+		list.add(3);
+		ArrayList<Integer> array = new ArrayList<Integer>();
+		
+		array = operationOnList(ispositive, list);
+		
+		System.out.println(array);
+		
 	}
 
+	
+	
+	
+	
+	
 }

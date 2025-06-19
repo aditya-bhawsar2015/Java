@@ -1,9 +1,9 @@
-package day7;
+package lambda;
 
 public class EmptyStringException extends Exception{
-
-	public EmptyStringException(String message)
-	{
+	
+	public EmptyStringException(String message) {
 		super(message);
 	}
+
 }
