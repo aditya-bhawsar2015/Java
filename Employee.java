@@ -1,11 +1,11 @@
-package day8;
+package employee;
 
 public class Employee {
-	private int empid;
-	private String name;
-	private double salary;
-	private String department;
-	public Employee(int empid, String name, double salary, String department) {
+	int empid;
+	String name;
+	int salary;
+	String department;
+	public Employee(int empid, String name, int salary, String department) {
 		super();
 		this.empid = empid;
 		this.name = name;
@@ -24,10 +24,10 @@ public class Employee {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getSalary() {
+	public int getSalary() {
 		return salary;
 	}
-	public void setSalary(double salary) {
+	public void setSalary(int salary) {
 		this.salary = salary;
 	}
 	public String getDepartment() {
@@ -38,8 +38,10 @@ public class Employee {
 	}
 	@Override
 	public String toString() {
-		return "empid=" + empid + ", name=" + name + ", salary=" + salary + ", department=" + department;
+		return "Employee [empid=" + empid + ", name=" + name + ", salary=" + salary + ", department=" + department
+				+ "]";
 	}
+	
 	
 	
 }

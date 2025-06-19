@@ -1,4 +1,4 @@
-package day10;
+package day10Annotations;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -8,12 +8,14 @@ import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
 public class DemoReflection {
-
+	
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, InstantiationException, InvocationTargetException {
-		Student s = new Student();		
+		Student s = new Student();
+		
 		Class c = s.getClass();
 		System.out.println("Field info");
-		Field [] fields= c.getDeclaredFields();
+		
+		Field [] fields = c.getDeclaredFields();
 		for(Field field : fields)
 		{
 			System.out.println(field.getName());
@@ -32,7 +34,7 @@ public class DemoReflection {
 			System.out.println(con.getParameterCount());
 			if(con.getParameterCount()==2)
 			{
-				Parameter [] params = con.getParameters();
+				Parameter [] params =con.getParameters();
 				System.out.println(Arrays.toString(params));
 				
 				Student s1 = (Student) con.newInstance(12, "ccc");
@@ -45,7 +47,7 @@ public class DemoReflection {
 		for(Method method : methods)
 		{
 			System.out.println(method.getName());
-			if(method.getName().equals("privateMethod"))
+			if(method.getName().equals("privateMthod"))
 			{
 				method.setAccessible(true);
 				method.invoke(s);
@@ -60,7 +62,7 @@ public class DemoReflection {
 				Parameter [] params = method.getParameters();
 				System.out.println(Arrays.toString(params));
 				method.setAccessible(true);
-				method.invoke(s, 13, "ppp");
+				method.invoke(s, 13 , "pppp");
 			}
 		}
 		
@@ -70,13 +72,12 @@ public class DemoReflection {
 		{
 			if(method.getDeclaredAnnotation(CreatedBy.class)!=null)
 			{
-				CreatedBy info = method.getDeclaredAnnotation(CreatedBy.class);
+				CreatedBy info  = method.getDeclaredAnnotation(CreatedBy.class);
 				if(info.priority()==2)
 				{
 					method.invoke(s);
 				}
 			}
-		}
+		} 
 	}
-
 }
