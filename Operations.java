@@ -1,77 +1,57 @@
-package lambda;
+package twitter;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Operations {
-	public static List<Colors> makeList(){
-		List<Colors> colors = new ArrayList<Colors>();
-		colors.add(new Colors("Red"));
-		colors.add(new Colors("Orange"));
-		colors.add(new Colors("Yellow"));
-		colors.add(new Colors("Green"));
-		colors.add(new Colors("Blue"));
-		colors.add(new Colors("Indigo"));
-		colors.add(new Colors("Violet"));
-		
-		return colors;
+	
+	public static void currentMonthTweet(List<Tweet> lst, String month, int year) {
+		Stream<Tweet> list = lst.stream();
+		list.filter((tweet)->(tweet.getDatePost().getMonth().equals(month)&& tweet.getDatePost().getYear() == year)).forEach((tweet)->System.out.println(tweet));;
 	}
 	
-	public static List<String> upperCaseList(List<Colors> list){
-		List<String> listStr = new ArrayList<String>();
-		listStr = list.stream().map((c)-> c.name.toUpperCase()).collect(Collectors.toList());
-		return listStr;
-	}
-	public static List<String> lowerCaseList(List<Colors> list){
-		List<String> listStr = new ArrayList<String>();
-		listStr = list.stream().map((c)-> c.name.toLowerCase()).collect(Collectors.toList());
-		return listStr;
-	}
-	public static List<String> beforeM(List<Colors> list){
-		List<String> lessThanM = new ArrayList<String>();
-		lessThanM = list.stream().filter(c -> {
-			return ((c.getName().charAt(0)<'M'));
-		}).map(c->c.getName()).collect(Collectors.toList());
-		
-		Collections.sort(lessThanM, new StringComparator());
-		return lessThanM;
-		
-	}
-	public static List<String> beforeMDecreased(List<Colors> list){
-		List<String> lessThanM = new ArrayList<String>();
-		lessThanM = list.stream().filter(c -> {
-			return ((c.getName().charAt(0)<'M'));
-		}).map(c->c.getName()).collect(Collectors.toList());
-		
-		Collections.sort(lessThanM, new ReverseStringcomparator ());
-		return lessThanM;
-		
+	public static void subjectCount(List<Tweet> lst) {
+		Stream<Tweet> tweet = lst.stream();
+		tweet.collect(Collectors.groupingBy(Tweet::getSubject)).forEach((k,v)->System.out.println(k+"  \ncount = " +v.size()+"\n\n"));
 	}
 	
-	public static List<String> shorterThan5(List<Colors> list){
-		 List<String> shortThan5 = new ArrayList<String>();
-		 shortThan5 = list.stream().filter((c)-> c.getName().length() < 5).map(c -> c.getName()).collect(Collectors.toList());
-		 Collections.sort(shortThan5, new IntComparator());
-		 return shortThan5;
+	public static void tweetWithTag(List<Tweet> lst, String keyTag) {
+		Stream<Tweet> list = lst.stream();
+		list.filter((tweet)->tweet.getTags().contains(keyTag)).forEach(System.out::println);;
 	}
-	public static List<String> shorterThan5Decreased(List<Colors> list){
-		 List<String> shortThan5 = new ArrayList<String>();
-		 shortThan5 = list.stream().filter((c)-> c.getName().length() < 5).map(c -> c.getName()).collect(Collectors.toList());
-		 Collections.sort(shortThan5, new IntComparatorReversed());
-		 return shortThan5;
+	public static void views10k(List<Tweet> lst) {
+		Stream<Tweet> list = lst.stream();
+		list.filter((tweet)->tweet.getViews()>=10000).forEach(System.out::println);
 	}
 	
+	public static void trendingTweets(List<Tweet> lst) {
+		Stream<Tweet> list = lst.stream();
+		Comparator<Tweet> byViews = Comparator.comparing(Tweet::getViews).reversed();
+		list.sorted(byViews).limit(5).forEach(System.out::println);
+	}
+
 	public static void main(String[] args) {
-		List<Colors> colors = new ArrayList<Colors>();
-		colors = makeList();
-		System.out.println(upperCaseList(colors));
-		System.out.println(lowerCaseList(colors));
-		System.out.println(beforeM(colors));
-		System.out.println(beforeMDecreased(colors));
-		System.out.println(shorterThan5(colors));
-		System.out.println(shorterThan5Decreased(colors));
+		List<Tweet> lst = new ArrayList<Tweet>();
 		
+		lst = InitTweet.createList();
+		
+		System.out.println("---------------------------Tweets posted in current Month---------------------------------");
+		currentMonthTweet(lst, "March", 2025);
+		
+		System.out.println("---------------------------Tweets posted with certain Tag---------------------------------");
+		tweetWithTag(lst , "AI");
+		
+		System.out.println("---------------------------Tweets posted with Subject and their Count---------------------------------");
+		subjectCount(lst);
+		
+		System.out.println("---------------------------Tweets with more than 10k views---------------------------------");
+		views10k(lst);
+		
+		System.out.println("---------------------------Top 5 Trending Tweets---------------------------------");
+		trendingTweets(lst);
 	}
-	
+
 }

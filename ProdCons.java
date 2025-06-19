@@ -1,45 +1,44 @@
-package day9;
+package threading;
 
 public class ProdCons {
 	public static void main(String[] args) {
+		
 		MyQueue queue = new MyQueue();
 		
-		Thread producer = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				for(int i=0; i< 10;i++)
+		Thread producer = new Thread(new Runnable()
 				{
-					queue.setValue(i);
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+					@Override
+					public void run() {
+						for(int i=0; i<10;i++)
+						{ 
+							queue.setValue(i);
+							try {
+								Thread.sleep(500);
+							}catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						}
 					}
-				}				
-			}
-		});
-		
-		Thread consumer = new Thread(new Runnable() {
-			
+				});
+		Thread consumer = new Thread(new Runnable () {
 			@Override
 			public void run() {
-				for(int i=0; i<10;i++)
+				for(int i=0;i<10;i++)
 				{
-					int value =queue.getValue();
+					int value = queue.getValue();
 					System.out.println("Got Value : " + value);
 					try {
 						Thread.sleep(500);
-					} catch (InterruptedException e) {
+					}catch(InterruptedException e)
+					{
 						e.printStackTrace();
 					}
 				}
-				
 			}
 		});
-
 		producer.start();
 		consumer.start();
 	}
-
+	
+	
 }
